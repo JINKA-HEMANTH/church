@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calvary Temple Proddatur — PA System Management</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main>
+      <section id="loginPage" class="page active card">
+        <h1>Calvary Temple Proddatur</h1>
+        <p class="subtitle">PA System Management</p>
+        <form id="loginForm" class="grid-form">
+          <label>
+            Email
+            <input type="email" id="email" required placeholder="name@example.com" />
+          </label>
+          <label>
+            Password
+            <input type="password" id="password" required minlength="4" />
+          </label>
+          <label>
+            Branch
+            <select id="branchSelect" required>
+              <option value="">Select a branch</option>
+              <option value="Main Campus">Main Campus</option>
+              <option value="Proddatur East">Proddatur East</option>
+              <option value="Proddatur West">Proddatur West</option>
+              <option value="Children Ministry">Children Ministry</option>
+              <option value="Youth Fellowship">Youth Fellowship</option>
+              <option value="Other">Other</option>
+            </select>
+          </label>
+          <label id="otherBranchWrap" class="hidden">
+            Custom Branch Name
+            <input type="text" id="otherBranch" placeholder="Enter custom branch" />
+          </label>
+          <label>
+            Team Name
+            <input type="text" id="teamName" required placeholder="PA Team A" />
+          </label>
+          <button type="submit" class="primary">Login</button>
+        </form>
+      </section>
+
+      <section id="appPage" class="page hidden">
+        <nav class="navbar card">
+          <h2>PA System</h2>
+          <ul>
+            <li><button class="nav-link active" data-page="home">Home</button></li>
+            <li><button class="nav-link" data-page="dashboard">Dashboard</button></li>
+            <li><button class="nav-link" data-page="churchWork">Church Work</button></li>
+          </ul>
+        </nav>
+
+        <section id="home" class="subpage card active">
+          <header class="home-header">
+            <div>
+              <h2 class="center">Calvary Temple Proddatur</h2>
+              <p class="center">PA Team Coordination Center</p>
+            </div>
+            <button id="logoutBtn" class="danger">Logout</button>
+          </header>
+          <div class="card section">
+            <h3>Dynamic Schedule</h3>
+            <div id="scheduleContent"></div>
+          </div>
+        </section>
+
+        <section id="dashboard" class="subpage card hidden">
+          <header>
+            <h2>Dashboard</h2>
+            <p id="dashboardSubtitle"></p>
+          </header>
+
+          <div class="section grid-2">
+            <article class="card">
+              <h3>Team Members Management</h3>
+              <form id="memberForm" class="grid-form compact">
+                <input type="hidden" id="memberId" />
+                <label>Name <input type="text" id="memberName" required /></label>
+                <label>Role <input type="text" id="memberRole" required /></label>
+                <label>Phone <input type="tel" id="memberPhone" /></label>
+                <label>Photo <input type="file" id="memberPhoto" accept="image/*" /></label>
+                <canvas id="cropCanvas" width="150" height="150" class="hidden"></canvas>
+                <button type="submit" class="primary">Save Member</button>
+              </form>
+              <div id="membersList" class="list"></div>
+            </article>
+
+            <article class="card">
+              <h3>Performance Analytics</h3>
+              <div id="analytics" class="stats"></div>
+            </article>
+          </div>
+
+          <div class="section grid-2">
+            <article class="card">
+              <h3>Attendance</h3>
+              <label>Date <input type="date" id="attendanceDate" /></label>
+              <div id="attendanceGrid" class="attendance-grid"></div>
+            </article>
+
+            <article class="card">
+              <h3>Work Assignment</h3>
+              <form id="taskForm" class="grid-form compact">
+                <label>Member
+                  <select id="taskMember" required></select>
+                </label>
+                <label>Task <input type="text" id="taskName" required /></label>
+                <label>Date <input type="date" id="taskDate" required /></label>
+                <button type="submit" class="primary">Assign Task</button>
+              </form>
+              <div class="filters">
+                <label>Filter Member
+                  <select id="taskFilterMember"></select>
+                </label>
+                <label>Filter Date
+                  <input type="date" id="taskFilterDate" />
+                </label>
+              </div>
+              <table>
+                <thead><tr><th>Member</th><th>Task</th><th>Date</th></tr></thead>
+                <tbody id="taskTableBody"></tbody>
+              </table>
+            </article>
+          </div>
+
+          <div class="section grid-2">
+            <article class="card">
+              <h3>Feature Performance Tracking</h3>
+              <div class="tabs">
+                <button class="feature-tab active" data-tab="old">Previous/Old Features</button>
+                <button class="feature-tab" data-tab="new">New Features</button>
+              </div>
+              <ul id="featureList" class="list"></ul>
+            </article>
+
+            <article class="card">
+              <h3>Team Performance</h3>
+              <div id="teamPerformance"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="churchWork" class="subpage card hidden">
+          <div class="section grid-2">
+            <article class="card">
+              <h3>Ministry Work Log</h3>
+              <p id="liveClock" class="clock"></p>
+              <form id="logForm" class="grid-form compact">
+                <label>Title <input type="text" id="logTitle" required /></label>
+                <label>Description <textarea id="logDesc" rows="2" required></textarea></label>
+                <button type="submit" class="primary">Add Log Entry</button>
+              </form>
+              <div id="logList" class="list"></div>
+            </article>
+
+            <article class="card">
+              <h3>Church Notes</h3>
+              <form id="noteForm" class="grid-form compact">
+                <label>Note <textarea id="noteText" rows="2" required></textarea></label>
+                <button type="submit" class="primary">Add Note</button>
+              </form>
+              <div id="notesList" class="list"></div>
+            </article>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
